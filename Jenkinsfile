@@ -35,23 +35,25 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'DOCKERHUB',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )
-                ]) {
-                    sh '''
-                        set +x
-                        echo "$DOCKER_TOKEN" | docker login \
-                          -u "$DOCKER_USER" --password-stdin
-                    '''
-                }
-            }
+     
+stage('Login to Docker Hub') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            sh '''
+                set +x
+                echo "$DOCKER_PASS" | docker login \
+                    -u "$DOCKER_USER" --password-stdin
+            '''
         }
+    }
+}
+
 
         stage('Push to Docker Hub') {
             steps {
