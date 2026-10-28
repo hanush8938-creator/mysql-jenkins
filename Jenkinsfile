@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         DOCKERHUB_USERNAME = 'hanusharma8938'
-        IMAGE_NAME = 'flask-mysql-app'
+        IMAGE_NAME = 'hanush8938'
     }
 
     stages {
